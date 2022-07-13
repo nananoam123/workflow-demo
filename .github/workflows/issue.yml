@@ -1,0 +1,33 @@
+# This workflow warns and then closes issues and PRs that have had no activity for a specified amount of time.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/actions/stale
+name: Create_issue
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_issue:
+
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    - name: Create Issue using REST API
+      run: |
+         curl --request POST \
+         --url https://api.github.com/repos/${{ github.repository }}/issues \
+         --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+         --header 'content-type: application/json' \
+         --data '{
+           "title": "Automated issue for commit: ${{ github.sha }}",
+           "body": "This issue was automatically created by the Github action
+                   workflow **${{ github.workflow }}**. \n\n the commit hash :
+                   _${{ github.sha }}_."
+                   }'
+         
+ 
