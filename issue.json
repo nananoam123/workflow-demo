@@ -1,0 +1,4 @@
+{
+	"title": "Automated issue for commit: ${{ github.sha }}",
+	"body": "This issue was automatically created by the Github action workflow **${{ github.workflow }}**. \n\n the commit hash :_${{ github.sha }}_."
+}
